@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seung-Yeon Jung — Artist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #fffcf6;
+    --bg-soft: #f3efe7;
+    --ink: #0d0d0d;
+    --muted: #534f46;
+    --line: rgba(33,31,26,0.14);
+    --line-strong: rgba(33,31,26,0.28);
+    --accent: #68533ee3;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Times New Roman';
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+
+
+  .wrap{ max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+  h1, h2, .display{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+
+  header{
+    position: fixed; top:0; left:0; right:0; z-index: 40;
+    background: transparent;
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:flex-end;
+    padding: 30px 32px;
+    max-width: 1100px; margin:0 auto;
+  }
+  .nav-mark{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.03em;
+  }
+
+  .menu{ position: relative; }
+  .menu-btn{
+    background: none;
+    border: 1px solid var(--line-strong);
+    padding: 10px 20px;
+    font-family: 'Times New Roman';
+    font-size: .8rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--ink);
+    display:flex; align-items:center; gap:10px;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .menu-btn:hover{ border-color: var(--ink); }
+  .menu-btn .bars{ display:flex; flex-direction:column; gap:3px; }
+  .menu-btn .bars span{
+    width:14px; height:1px; background: var(--ink); display:block;
+    transition: transform .2s ease, opacity .2s ease;
+  }
+  .menu.open .menu-btn .bars span:nth-child(1){ transform: translateY(4px) rotate(45deg); }
+  .menu.open .menu-btn .bars span:nth-child(2){ opacity: 0; }
+  .menu.open .menu-btn .bars span:nth-child(3){ transform: translateY(-4px) rotate(-45deg); }
+
+  .dropdown{
+  position: absolute; top: calc(100% + 10px); right: 0px;
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  min-width: 260px;
+  max-width: 320px;
+  opacity: 0; visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+  .menu.open .dropdown{ opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown a{
+  display: block;
+  padding: 16px 20px;
+  font-size: .85rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+  transition: background .15s ease;
+}
+
+.dropdown a span{
+  display: inline-block;
+  transition: transform .15s ease;
+}
+.dropdown a:hover{
+  background: var(--bg-soft);
+  color: var(--accent);
+}
+.dropdown a:hover span{
+  transform: translateX(6px);
+}
+
+
+.dropdown-toggle{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 16px 20px;
+  font-size: .85rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-family: 'Times New Roman';
+  color: var(--ink);
+  cursor: pointer;
+  transition: background .15s ease;
+}
+
+.dropdown-toggle span:first-child{
+  display: inline-block;
+  transition: transform .15s ease;
+}
+
+.dropdown-toggle:hover{
+  background: var(--bg-soft);
+  color: var(--accent);
+}
+
+.dropdown-toggle:hover span:first-child{
+  transform: translateX(6px);
+}
+  .chevron{
+    transition: transform .2s ease;
+  }
+  .dropdown-item.open .chevron{
+    transform: rotate(90deg);
+  }
+  .submenu a{
+  display: block;
+  padding: 12px 20px 12px 34px;
+  font-size: .8rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+  transition: background .15s ease;
+}
+.submenu a span{
+  display: inline-block;
+  transition: transform .15s ease;
+}
+.submenu a:hover{
+  color: var(--accent);
+}
+.submenu a:hover span{
+  transform: translateX(6px);
+}
+  .submenu a:last-child{ border-bottom: none; }
+  .submenu a:hover{ color: var(--accent); }
+
+
+
+
+  .section{ padding: 100px 0; border-top: 1px solid var(--line); }
+  .section-head{ margin-bottom: 56px; }
+  .section-head h2{ font-size: clamp(2rem, 4.5vw, 2.8rem); }
+  .section-head p{ color: var(--muted); margin-top: 10px; max-width: 50ch; font-size: .98rem; }
+
+  .year-group{ margin-bottom: 70px; }
+  .year-group:last-child{ margin-bottom: 0; }
+  .year-heading{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+    margin-bottom: 24px;
+    padding-top: 20px;
+    scroll-margin-top: 100px;
+  }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr; 
+  gap: 40px; 
+}
+
+  @media (max-width: 900px){ .grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px){ .grid{ grid-template-columns: 1fr; } }
+
+  .plate{
+    aspect-ratio: 16/10;
+    width:100%;
+    background: var(--bg-soft);
+    overflow:hidden;
+    transition: opacity .3s ease;
+  }
+  .plate svg{ width:100%; height:100%; display:block; }
+  .card:hover .plate{ opacity: .88; }
+
+  .card-info{ margin-top: 16px; }
+  .card-info h3{ font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.25rem; }
+  .card-info span{ display:block; color: var(--muted); font-size: .82rem; margin-top: 3px; letter-spacing: .03em; }
+
+  .about-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  @media (max-width: 800px){ .about-grid{ grid-template-columns: 1fr; } }
+  .about-grid p{ font-size: 1.05rem; color: var(--muted); margin: 0 0 18px; }
+  .about-grid p:first-child{ color: var(--ink); font-size: 1.2rem; font-family:'Cormorant Garamond', serif; }
+
+  .contact-links{ display:flex; flex-direction:column; gap: 14px; font-size: 1rem; }
+  .contact-links a{
+    width: fit-content;
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 3px;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .contact-links a:hover{ color: var(--accent); border-color: var(--accent); }
+
+  footer{ padding: 40px 0; text-align:center; font-size: .78rem; color: var(--muted); letter-spacing: .05em; }
+
+  #backToTop{
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 40;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 1.1rem;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease-out, border-color .2s ease;
+  }
+  #backToTop:hover{
+    border-color: var(--ink);
+  }
+</style>
+</head>
+<body>
+
+ <canvas id="inkCanvas"></canvas>
+<header>
+  <div class="nav">
+    <div class="menu" id="menu">
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="dropdown">
+        Menu
+        <span class="bars"><span></span><span></span><span></span></span>
+      </button>
+      <div class="dropdown" id="dropdown">
+        <div class="dropdown-item">
+          <button class="dropdown-toggle" id="workToggle" aria-expanded="false" aria-controls="workSubmenu">
+            Work
+            <span class="chevron">›</span>
+          </button>
+          <div class="submenu" id="workSubmenu">
+  <a href="#work-homo-mobilis"><span>Homo Mobilis</span></a>
+  <a href="#work-harmony"><span>Harmony in a book left unread</span></a>
+  <a href="#work-social"><span>Social mutation</span></a>
+  <a href="#work-wave"><span>Wave of Janggu</span></a>
+</div>
+        </div>
+        <a href="#about"><span>About</span></a>
+        <a href="#contact"><span>Contact</span></a>
+        
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  
+  <div class="hero-video-frame">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="video.mp4" type="video/mp4">
+    </video>
+  </div>
+
+ 
+  <div class="wrap hero-text-base">
+    <h1 class="hero-title reveal">Seung-Yeon Jung</h1>
+    <p class="hero-sub reveal d1"></p>
+  </div>
+
+  
+
+  
+  <div class="hero-clip-layer" aria-hidden="true">
+    <div class="hero-clip-inner">
+      <div class="wrap">
+        <h1 class="hero-title hero-title-white reveal">Seung-Yeon Jung</h1>
+        <p class="hero-sub hero-sub-white reveal d1"></p>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="hero-tags reveal d1">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Work</h2>
+    </div>
+
+    <div class="year-group" id="work-homo-mobilis">
+      <h3 class="year-heading">Homo Mobilis</h3>
+      <div class="grid">
+
+      <div class="card" data-work-id="1">
+  <div class="plate">
+    <img
+      src="homo mobilis/1-1 homo mobilis performance.jpg"
+      alt="Homo Mobilis Performance"
+      style="width: 100%; height: 100%; object-fit: cover; object-position: 59% center;"
+    />
+  </div>
+  <div class="card-info">
+    <h3>Homo Mobilis</h3>
+    <span>Performance work</span>
+  </div>
+</div>
+
+
+
+  <div class="card" data-work-id="2">
+  <div class="plate">
+    <img
+      src="homo mobilis/2-1 the entwined cycle.jpg"
+      alt="The Entwined Cycle"
+      style="width: 100%; height: 100%; object-fit: cover; object-position: 59% center;"
+    />
+  </div>
+  <div class="card-info">
+    <h3>The Entwined Cycle</h3>
+    <span>Mixed Media Painting</span>
+  </div>
+</div>
+
+ <div class="card" data-work-id="3">
+  <div class="plate">
+    <img
+      src="homo mobilis/3-1 alien torso.jpg"
+      alt="alien torso"
+      style="width: 100%; height: 100%; object-fit: cover; object-position: 59% center;"
+    />
+  </div>
+  <div class="card-info">
+    <h3>alien torso</h3>
+    <span>Costume & Installation</span>
+  </div>
+</div>
+
+</div> 
+    </div>        
+
+    <div class="year-group" id="work-harmony">
+      <h3 class="year-heading">the harmony in a book left unread</h3>
+      <div class="grid">
+
+        <div class="card" data-work-id="4">
+  <div class="plate">
+    <img
+      src="harmony/1 harmony in a book left unread.jpg"
+      alt="the harmony in a book left unread"
+      style="width: 100%; height: 100%; object-fit: cover; object-position: 59% center;"
+    />
+  </div>
+  <div class="card-info">
+    <h3>flame of harmony</h3>
+    <span>Installation</span>
+  </div>
+</div>
+
+<div class="card" data-work-id="5">
+  <div class="plate">
+    <img
+      src="harmony/3-1 Harmony in motion.jpg"
+      alt="the harmony in a book left unread"
+      style="width: 100%; height: 100%; object-fit: cover; object-position: 59% center;"
+    />
+  </div>
+  <div class="card-info">
+    <h3>harmony in motion</h3>
+    <span>Painting</span>
+  </div>
+</div>
+
+<div class="card" data-work-id="6">
+  <div class="plate">
+    <img
+      src="harmony/4-1 the root of freedom.jpg"
+      alt="the root of freedom"
+      style="width: 100%; height: 100%; object-fit: cover; object-position: 59% center;"
+    />
+  </div>
+  <div class="card-info">
+    <h3>the root of freedom</h3>
+    <span>Painting</span>
+  </div>
+</div>
+
+<div class="card" data-work-id="7">
+  <div class="plate">
+    <img
+      src="harmony/5-1 when it finally becomes still.jpg"
+      alt="when it finally becomes still"
+      style="width: 100%; height: 100%; object-fit: cover; object-position: 59% center;"
+    />
+  </div>
+  <div class="card-info">
+    <h3>when it finally becomes still</h3>
+    <span>Painting</span>
+  </div>
+</div>
+
+  
+    <div class="year-group" id="work-2024">
+      <h3 class="year-heading">2024</h3>
+      <div class="grid">
+
+        <div class="card">
+          <a href="work5.html" style="text-decoration: none; color: inherit; display: block;">
+            <div class="plate">
+              <svg viewBox="0 0 300 375" preserveAspectRatio="xMidYMid slice" style="width: 100%; height: auto;">
+                <image href="SJY.jpg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" />
+              </svg>
+            </div>
+          </a>
+          <div class="card-info">
+            <h3>Name</h3>
+            <span>Material</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head"><h2>About</h2></div>
+    
+    <div class="about-grid">
+      <div>
+        <p>Seung-Yeon Jung, * 1997, is a South Korean artist working in painting, installation, and performance. She has lived and worked in Vienna since 2019, completing her studies at the Academy of Fine Arts in 2025. Her practice emerges from a lifelong engagement with questions of belonging and identity in a world that, despite its constant state of flux, often remains relentlessly unyielding. In her work, traditional Korean art forms meet contemporary aesthetic concerns, transforming one another and merging into a distinctly original ecology of artistic expression.</p>
+      </div>
+    </div>
+
+    <div class="about-expandable-wrapper">
+      <h3 class="about-section-title">Selected Exhibitions</h3>
+
+      <!-- Expandable List Container -->
+      <div class="about-expandable-content collapsed" id="aboutExpandable">
+        <ul class="cv-list">
+          <li class="cv-item">
+            <span class="cv-year">2026</span>
+            <span class="cv-details"><strong>Welle</strong>, Performance & Group Exhibition, Korea Kulturzentrum, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year">2025</span>
+            <span class="cv-details"><strong>blinking echoes</strong>, Performance, Korea Kulturzentrum, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>liminal space</strong>, Group Exhibition & Performance, Vinzenz Wien, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>Bäm!2</strong>, Performance, Marokkanergasse 7, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>illusion boundaries part 2</strong>, Group Exhibition & Performance, Tinc, Seoul, KR</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>friendship as a common ground</strong>, Performance, Dom Museum Wien, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>KRACHERL UND KARAWALL</strong>, Group Exhibition, Exhibit Eschenbachgasse, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>Bäm!</strong>, Group Exhibition, Marokkanergasse 7, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>illusion boundaries</strong>, Group Exhibition at Aquarium, Kurzbauergasse 9, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>blinking echoes</strong>, Performance program „performing a line“, Belvedere 21, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year">2024</span>
+            <span class="cv-details"><strong>Corporate Unwellness</strong>, Group Exhibition, Dornbacherstraße 59, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>the others Art fair</strong>, Opening Performance, Turin, IT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>Kleingarten</strong>, Group Exhibition, Stuwerstr. 33, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>We perform</strong>, Performance, MQ Sommerbühne, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year">2023</span>
+            <span class="cv-details"><strong>YAA Young Art Auction</strong>, Manner Villa, Klampfelberggasse, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year">2022</span>
+            <span class="cv-details"><strong>Parallel Editions</strong>, Semperdepot, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>Being here</strong>, Group Exhibition, AA Collections Gallery, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>Geile Knoten</strong>, Public Art, Matzleinsdorferplatz, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>How thick is the layer of butter on your bread?</strong>, Group Exhibition at Exhibit Studio, Schillerplatz 3, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>what I learned about care</strong>, Kultursommer Wien, Performance, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year"></span>
+            <span class="cv-details"><strong>Haii</strong>, Performance, Belvedere 21, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year">2021</span>
+            <span class="cv-details"><strong>Bau 2-6</strong>, Group Exhibition, Vienna, AT</span>
+          </li>
+          <li class="cv-item">
+            <span class="cv-year">2020</span>
+            <span class="cv-details"><strong>Summer Poemsch</strong>, Performance Video, Kunstraum Niederösterreich, Vienna, AT</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Toggle Button -->
+      <button class="about-toggle-btn" onclick="toggleAboutList()" id="aboutToggleBtn">
+        <span class="btn-text">Read More</span>
+        <span class="btn-arrow">↓</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Contact</h2>
+      <p>For inquiries and commissions.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:jsy0105@gmail.com">jsy970501@gmail.com</a>
+      <a href="https://instagram.com/seung_yeon_jung" target="_blank" rel="noopener noreferrer">@seung_yeon_jung</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">© 2026 Seung-Yeon Jung</div></footer>
+
+<button id="backToTop" aria-label="Back to top">↑</button>
+
+<div class="work-modal" id="workModal">
+  <div class="work-modal-backdrop" id="workModalBackdrop"></div>
+  <button class="work-modal-close" id="workModalClose" aria-label="Close">×</button>
+ 
+
+
+<button class="work-modal-nav prev" id="workModalPrev" aria-label="Previous work">←</button>
+<button class="work-modal-nav next" id="workModalNext" aria-label="Next work">→</button>
+
+  <div class="work-modal-panel" id="workModalPanel">
+  
+    
+  <div class="work-modal-scroll" id="workModalScroll">
+  <div class="work-modal-hero">
+    <img id="workModalImg" src="" alt="">
+  </div>
+
+  <div class="work-modal-header">
+    <h2 id="workModalTitle"></h2>
+    <span id="workModalMeta"></span>
+  </div>
+
+  <div class="work-modal-desc" id="workModalDesc"></div>
+
+  <div class="work-modal-gallery" id="workModalGallery"></div>
+</div>
+
+<script>
+  const menu = document.getElementById('menu');
+  const menuBtn = document.getElementById('menuBtn');
+  const workToggle = document.getElementById('workToggle');
+  const dropdownItem = workToggle.closest('.dropdown-item');
+
+  workToggle.addEventListener('click', () => {
+    const isOpen = dropdownItem.classList.toggle('open');
+    workToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  menuBtn.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', isOpen);
+  });
+
+  document.querySelectorAll('.dropdown a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target)) {
+      menu.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+/* ===== Reverse Parallax (Desktop Mouse + Mobile Gyroscope) ===== */
+const heroVideo = document.querySelector('.hero-video');
+const heroTextLayers = document.querySelectorAll('.hero-text-base, .hero-clip-inner .wrap');
+
+const VIDEO_PARALLAX = 18; // Video moves WITH movement
+const TEXT_PARALLAX = 14;  // Text moves OPPOSITE to movement
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Core function to update positioning across mouse and gyro
+function setParallaxOffset(x, y) {
+  if (prefersReducedMotion) return;
+
+  // Move video WITH motion
+  const vidX = x * VIDEO_PARALLAX * 2;
+  const vidY = y * VIDEO_PARALLAX * 2;
+  if (heroVideo) {
+    heroVideo.style.transform = `scale(1.12) translate(${vidX}px, ${vidY}px)`;
+  }
+
+  // Move text IN REVERSE
+  const textX = -x * TEXT_PARALLAX * 2;
+  const textY = -y * TEXT_PARALLAX * 2;
+  heroTextLayers.forEach(layer => {
+    layer.style.transform = `translate(${textX}px, ${textY}px)`;
+  });
+}
+
+if (!prefersReducedMotion) {
+  // 1. Desktop Mouse Movement
+  window.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth) - 0.5;
+    const y = (e.clientY / window.innerHeight) - 0.5;
+    setParallaxOffset(x, y);
+  });
+
+  document.addEventListener('mouseleave', () => {
+    setParallaxOffset(0, 0);
+  });
+
+  // 2. Mobile Gyroscope Movement
+  function handleOrientation(e) {
+    if (e.beta === null || e.gamma === null) return;
+
+    // Gamma: Left/Right tilt (-30deg to +30deg mapped to -0.5 to +0.5)
+    const x = Math.max(-0.5, Math.min(0.5, e.gamma / 60));
+
+    // Beta: Front/Back tilt (Baseline ~45deg natural holding angle mapped to -0.5 to +0.5)
+    const y = Math.max(-0.5, Math.min(0.5, (e.beta - 45) / 60));
+
+    setParallaxOffset(x, y);
+  }
+
+  // Handle Mobile Permissions & Sensor Listening
+  function initGyroscope() {
+    // iOS 13+ requires explicit user gesture permission
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      const requestiOSPermission = () => {
+        DeviceOrientationEvent.requestPermission()
+          .then(response => {
+            if (response === 'granted') {
+              window.addEventListener('deviceorientation', handleOrientation);
+            }
+          })
+          .catch(console.error);
+      };
+      // Triggers permission request on first screen tap
+      window.addEventListener('touchstart', requestiOSPermission, { once: true });
+    } 
+    // Android & older iOS
+    else if ('DeviceOrientationEvent' in window) {
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+  }
+
+  initGyroscope();
+}
+</script>
+<script src="java.js"></script>
+
+</body>
+</html>
